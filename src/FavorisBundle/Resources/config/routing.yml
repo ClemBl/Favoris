@@ -1,0 +1,5 @@
+# src/FavorisBundle/config/Resources/routing.yml
+
+#favoriz_home:
+#    path: /
+#    defaults: {_controller: FavorisBundle:DefaultController:home}

@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+        <div class="group-settings bg-clouds">
+            <div class="group-header">
+                Favoris
+            </div>
+            <div class="group-body">
+                <div class="row formAdd">
+                    <div id="preview"></div>
+                    {{ form_start(formFavorisAdd) }}
+                    {{ form_widget(formFavorisAdd) }}
+                    {{ form_end(formFavorisAdd) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+        <div class="group-settings bg-concrete">
+            <div class="group-header">
+                Dossier
+            </div>
+            <div class="group-body">
+                <div class="row formAdd">
+                    {{ form_start(formDirectoryAdd) }}
+                    {{ form_widget(formDirectoryAdd) }}
+                    {{ form_end(formDirectoryAdd) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

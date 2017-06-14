@@ -1,0 +1,12 @@
+
+<header class="top-menu bg-blue-medium">
+    <div class="item{% if tab is defined and tab== '1' %} active{% endif %}">
+        <a href="{{ url('home') }}"><i class="bigger flaticon-star"></i></a>
+    </div>
+    <div class="item {% if tab is defined and tab== '2' %} active{% endif %}">
+        <a  href="{{ url('settings') }}"><i class="bigger flaticon-settings"></i></a>
+    </div>
+    <div class="item {% if tab is defined and tab== '3' %} active{% endif %}">
+        <a href="{{ url('add') }}"><i class="bigger flaticon-plus"></i></a>
+    </div>
+</header>

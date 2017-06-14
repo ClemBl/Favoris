@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/favoris/css/bootstrap.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/favoris/css/flaticon.css') }}" rel="stylesheet" />
+            <link href="{{ asset('bundles/favoris/css/style.css') }}" rel="stylesheet" />
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('bundles/favoris/js/jquery-3.2.1.js') }}"></script>
+            <script src="{{ asset('bundles/favoris/js/bootstrap.js') }}"> </script>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    {% block navigation %}
+        {%  include 'FavorisBundle:includes:navigation.html.twig' %}
+    {% endblock %}
+        {% block body %}{% endblock %}
+    {% block javascripts_footer %}
+
+    {% endblock %}
+    </body>
+</html>

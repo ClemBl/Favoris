@@ -1,0 +1,60 @@
+{% extends 'FavorisBundle:includes:base.html.twig' %}
+
+{% block title %} Add favourite !{% endblock %}
+{% block body %}
+    {% include 'FavorisBundle:add:addbody.html.twig' %}
+{% endblock %}
+{% block javascripts_footer %}
+    <script>
+        $(document).ready(function () {
+            $('#favorisbundle_favoris_add_url').focusout(function () {
+                var url=$(this).val();
+                if (verifyUrl(url)){
+                    console.log(url);
+                    var input_description = $('#favorisbundle_favoris_add_description');
+                    var input_title = $('#favorisbundle_favoris_add_title');
+                    var input_favicon = $('#favorisbundle_favoris_add_favicon');
+                    $.ajax({
+                            type:'POST',
+                            url : "{{ url('url_crawl') }}",
+                            data: {data:url},
+                            dataType: 'html',
+                            crossDomain : true,
+                            success: function(data) {
+                                data = JSON.parse(data);
+                                if(!$(input_description).val()) $(input_description).val(data.description);
+                                if(!$(input_title).val()) $(input_title).val(data.title);
+                                if(!$(input_favicon).val()) {
+                                    $(input_favicon).val(data.favicon);
+                                    $('#preview').html('<img src="'+data.favicon+'">');
+                                }
+                                console.log(data);
+                            },
+                            error: function(){
+                                console.log('not-ok');
+                            }
+                    });
+                }
+                else{
+                    console.log('not ok');
+                }
+            });
+            function verifyUrl(url) {
+                var urlRegex = /^((http|https):\/\/)?(www[.])?([a-zA-Z0-9]|-)+([.][a-z]{2,4})?\/?[a-zA-Z0-9#@%$:.?,+*\/=_-]*/;
+                return (urlRegex.test(url));
+            }
+        });
+
+        $(document).ready(function () {
+            $('#favorisbundle_favoris_add_url').focusin(function () {
+
+                $('#favorisbundle_favoris_add_title').val(null);
+                $('#favorisbundle_favoris_add_description').val(null);
+                $('#preview').html('');
+
+            });
+        });
+        $(":input").addClass("form-control form-design");
+        $(":button").addClass("btn btn-primary btn-design");
+    </script>
+{% endblock %}
