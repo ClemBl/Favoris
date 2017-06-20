@@ -4,9 +4,11 @@ namespace FavorisBundle\Controller;
 
 use FavorisBundle\Entity\Directory;
 use FavorisBundle\Entity\Favoris;
+use FavorisBundle\Entity\User;
 use FavorisBundle\FavorisBundle;
 use FavorisBundle\Form\DirectoryAddType;
 use FavorisBundle\Form\FavorisAddType;
+use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\BrowserKit\Response;
@@ -18,16 +20,14 @@ use Doctrine\ORM\EntityManagerInterface;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      */
     public function homeAction(Request $request)
     {
         $parameters = array(
             'tab'=>'1'
         );
-        // do something
 
-        //return $this->render('FavorisBundle:home:home.html.twig', $parameters);
         $em = $this->getDoctrine()->getManager();
 
         $favoris = $em->getRepository('FavorisBundle:Favoris')
@@ -77,6 +77,10 @@ class DefaultController extends Controller
         $parameters = array(
             'tab'=>'2'
         );
+
+        $user = $this->getUser();
+
+        $parameters['User'] = $user;
 
         return $this->render('FavorisBundle:settings:settings.html.twig', $parameters);
     }
@@ -150,6 +154,10 @@ class DefaultController extends Controller
         }
 
         $descriptionNode = ($crawler->filterXPath('//meta[@property="og:description"]') ) ? $crawler->filterXPath('//meta[@property="og:description"]') ->extract(array('content')):null;
+
+        if (!$descriptionNode) {
+            $descriptionNode = ($crawler->filterXPath('//meta[@name="description"]') ) ? $crawler->filterXPath('//meta[@name="description"]') ->extract(array('content')):null;
+        }
 
         $favicon = ($crawler->filterXPath('//link[@rel="apple-touch-icon"]') ) ? $crawler->filterXPath('//link[@rel="apple-touch-icon"]') ->extract(array('href')):null;
 

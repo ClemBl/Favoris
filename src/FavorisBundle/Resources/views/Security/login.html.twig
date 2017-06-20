@@ -1,0 +1,27 @@
+{% extends 'FavorisBundle:includes:base.html.twig' %}
+
+{% block title %} Connexion {% endblock %}
+ {% block navigation %}
+ {% endblock %}
+{% block body %}
+    <div id="form-login">
+        <div class="row">
+            <div class="col-md-offset-5 col-md-3 login-design">
+                <h1>Connectez-vous !</h1>
+                {{ include('@FOSUser/Security/login_content.html.twig') }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3 link-register">
+            <a href="{{ url('fos_user_registration_register') }}">Créer un compte</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts_footer %}
+    <script>
+      $(":input").addClass("form-control");
+      $(":input[type='submit']").addClass("btn btn-primary");
+    </script>
+{% endblock %}
+

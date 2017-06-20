@@ -8,3 +8,14 @@ favoris:
 #app:
 #    resource: '@AppBundle/Controller/'
 #    type: annotation
+
+# app/config/routing.yml
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /login
+        permanent: true

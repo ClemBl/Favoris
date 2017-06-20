@@ -1,0 +1,13 @@
+{% extends 'FavorisBundle:includes:base.html.twig' %}
+{% block title %} Editer compte {% endblock %}
+ {% block navigation %}
+ {% endblock %}
+{% block body %}
+{% include "@FOSUser/Profile/edit_content.html.twig" %}
+{% endblock body %}
+{% block javascripts_footer %}
+    <script>
+        $(":input").addClass("form-control register-input");
+        $(":input[type='submit']").addClass("btn btn-primary");
+    </script>
+{% endblock %}

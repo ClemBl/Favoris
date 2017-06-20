@@ -28,10 +28,9 @@
                 Compte
             </div>
             <div class="group-body info-compte">
-                <p class="">Nom : Pseudo<br/> </p>
-                <p class="">Email : Email@email.com<br/></p>
-                <p class="">Mot de passe : ******** <br/></p>
-                <a class="btn bouton-cpt"> Modifier</a>
+                <p class="">Pseudo : {{ User.username }}<br/> </p>
+                <p class="">Email : {{ User.email }}<br/></p>
+                <a href="{{ url('fos_user_profile_edit') }}"  class="btn bouton-cpt"> Modifier</a>
             </div>
         </div>
     </div>
@@ -55,7 +54,7 @@
             <div class="group-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-offset-3 col-md-6">
-                        <a class="btn bouton-deco"> Déconnexion</a>
+                        <a href="{{ url('fos_user_security_logout') }}" class="btn bouton-deco"> Déconnexion</a>
                     </div>
                 </div>
             </div>

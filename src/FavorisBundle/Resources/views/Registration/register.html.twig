@@ -1,0 +1,31 @@
+
+
+{% extends 'FavorisBundle:includes:base.html.twig' %}
+{% block title %} Inscription {% endblock %}
+ {% block navigation %}
+ {% endblock %}
+{% block body %}
+    {% trans_default_domain 'FOSUserBundle' %}
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3 register-design">
+            <h1>Qui etes vous ?</h1>
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            {{ form_widget(form) }}
+            <div>
+                <input type="submit" value="{{ 'registration.submit'|trans }}" />
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3 link-register">
+            <a href="{{ url('fos_user_security_login') }}">Se connecter!</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts_footer %}
+    <script>
+        $(":input").addClass("form-control register-input");
+        $(":input[type='submit']").addClass("btn btn-primary");
+    </script>
+{% endblock %}

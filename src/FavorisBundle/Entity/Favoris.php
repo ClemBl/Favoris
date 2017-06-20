@@ -266,8 +266,6 @@ class Favoris
         return $this->updatedAt;
     }
 
-
-
     /**
      * Set directory
      *

@@ -1,0 +1,12 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <div class="col-md-offset-5 col-md-3 register-design">
+        <div class="fos_user_user_show">
+            <h1>Mise à jour effectuée !</h1>
+            <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+            <p><a href="{{ url('home') }}">Retour !</a></p>
+        </div>
+    </div>
+</div>

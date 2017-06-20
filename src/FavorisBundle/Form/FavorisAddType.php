@@ -25,7 +25,7 @@ class FavorisAddType extends AbstractType
         $builder->add('url', UrlType::class, array('required'=>true))
             ->add('title',TextType::class, array('required'=>false))
             ->add('description',TextType::class, array('required'=>false))
-            ->add('position', IntegerType::class, array('required'=>false))
+//            ->add('position', IntegerType::class, array('required'=>false))
             ->add('favicon', HiddenType::class, array('required'=>false))
             ->add('directory', EntityType::class, array(
                 'class' => 'FavorisBundle:Directory',
