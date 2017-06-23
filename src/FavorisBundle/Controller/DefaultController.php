@@ -13,9 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 class DefaultController extends Controller
 {
@@ -40,6 +42,11 @@ class DefaultController extends Controller
 
         $parameters['directory'] = $directories;
 
+        $user = $em->getRepository('FavorisBundle:User')
+            ->findAll();
+
+        $parameters['user'] = $user;
+
         return $this->render('FavorisBundle:home:home.html.twig',$parameters);
     }
 
@@ -61,6 +68,9 @@ class DefaultController extends Controller
      */
     public function deleteDirAction(Request $request, Directory $directory)
     {
+        if($directory->getUser_dir() != $this->getUser()){
+            throw new AccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($directory);
@@ -95,6 +105,12 @@ class DefaultController extends Controller
         );
 
         $favoris = new Favoris();
+        /**
+         *
+        $advert = new Advert();
+        $tokenStorage = $this->get('security.token_storage');
+        $form = $this->createForm(new AdvertType($tokenStorage), $advert);
+         */
 
         $formFavorisAdd = $this->createForm(FavorisAddType::class,$favoris);
 
@@ -110,7 +126,6 @@ class DefaultController extends Controller
 
         $parameters['formFavorisAdd'] = $formFavorisAdd->createView();
 
-
         $directory = new Directory();
 
         $formDirectoryAdd = $this->createForm(DirectoryAddType::class,$directory);
@@ -119,6 +134,7 @@ class DefaultController extends Controller
 
         if ($formDirectoryAdd->isSubmitted() && $formDirectoryAdd->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $directory->setUser_dir($this->getUser());
             $em->persist($directory);
             $em->flush();
 
@@ -126,8 +142,6 @@ class DefaultController extends Controller
         }
 
         $parameters['formDirectoryAdd'] = $formDirectoryAdd->createView();
-
-
 
         return $this->render('FavorisBundle:add:add.html.twig', $parameters);
     }

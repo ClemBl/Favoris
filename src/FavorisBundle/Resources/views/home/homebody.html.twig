@@ -1,62 +1,37 @@
 <body>
-    {#<div class="row title-section">#}
-        {#<div class="col-offset-xs-1 col-xs-10">#}
-            {#<span>Vidéo<a href="{{ url('add') }}"><i class="flaticon-plus"></i></a><a href="#"><i class="flaticon-interface"></i></a></span>#}
-        {#</div>#}
-    {#</div>#}
-    {#<div class="row ">#}
-        {#{% for fav in favoris %}#}
-            {#<div class="col-md-2 box-section">#}
-                {#<div class="row">#}
-                    {#<div class="col-md-10 col-xs-9 name-section">#}
-                        {#<a href="{{ fav.url }}" target="_blank">{{ fav.title }}</a>#}
-                    {#</div>#}
-                    {#<div class="col-md-2 col-xs-3 name-section">#}
-                        {#<a href="#"><i class="flaticon-interface icon-section"></i></a>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="row">#}
-                    {#<div class="col-md-6 col-xs-12">#}
-                        {#<img src="{{ fav.favicon }}" class="favImage">#}
-                    {#</div>#}
-                    {#<div class="col-md-6 col-xs-12">#}
-                        {#{{ fav.description }}#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#{{ dump(fav) }}#}
-        {#{% endfor %}#}
-    {#</div>#}
-    {% for dir in directory %}
-        <div class="row title-section">
-            <div class="col-offset-xs-1 col-xs-10">
-                <span>{{ dir.title }}
-                    <a href="{{ url('add') }}"><i class="flaticon-plus"></i></a><a href="{{ url('delete_directory', {'directory':dir.id}) }}">
-                        <i class="flaticon-interface"></i>
-                    </a>
-                </span>
-            </div>
-        </div>
-        {% for fav in dir.favourites %}
-            {#{% if dir.id == fav.directory_id %}#}
-                <div class="col-md-2 box-section">
-                    <div class="row">
-                        <div class="col-md-10 col-xs-9 name-section">
-                            <a href="{{ fav.url }}" target="_blank">{{fav.title|truncate(30,true)}}</a>
-                        </div>
-                        <div class="col-md-2 col-xs-3 name-section">
-                            <a class="icon-section" href="{{ url('delete_favoris', {'favoris':fav.id}) }}"><i class="flaticon-interface"></i></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12 desc-section">
-                            <img src="{{ fav.favicon }}" class="favImage">
-                            {{ fav.description }}
-                        </div>
-                    </div>
+    {#{% for use in user %}#}
+         {% for dir in app.user.directory_user %}
+            <div class="row title-section">
+                <div class="col-offset-xs-1 col-xs-10">
+                    <span>{{ dir.title }}
+                        <a href="{{ url('add') }}"><i class="flaticon-plus"></i></a>
+                        {% if app.user.directory_user|length > 1 %}
+                        <a href="{{ url('delete_directory', {'directory':dir.id}) }}"><i class="flaticon-interface"></i></a>
+                        {% endif %}
+                    </span>
                 </div>
-            {#{% endif %}#}
-            {#{{ dump(fav) }}#}
-        {% endfor %}
-    {% endfor %}
+            </div>
+            {% for fav in dir.favourites %}
+                {#{% if dir.id == fav.directory_id %}#}
+                    <div class="col-md-2 box-section">
+                        <div class="row">
+                            <div class="col-md-10 col-xs-9 name-section">
+                                <a href="{{ fav.url }}" target="_blank">{{fav.title|truncate(30,true)}}</a>
+                            </div>
+                            <div class="col-md-2 col-xs-3 name-section">
+                                <a class="icon-section" href="{{ url('delete_favoris', {'favoris':fav.id}) }}"><i class="flaticon-interface"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 desc-section">
+                                <img src="{{ fav.favicon }}" class="favImage">
+                                {{ fav.description }}
+                            </div>
+                        </div>
+                    </div>
+                {#{% endif %}#}
+                {#{{ dump(fav) }}#}
+            {% endfor %}
+         {% endfor %}
+    {#{% endfor %}#}
 </body>

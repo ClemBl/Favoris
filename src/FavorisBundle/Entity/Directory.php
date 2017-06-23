@@ -56,6 +56,12 @@ class Directory
      */
     private $favourites;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="FavorisBundle\Entity\User", inversedBy="directory_user")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user_dir;
+
     public function __construct()
     {
         $this->favourites = new ArrayCollection();
@@ -67,10 +73,10 @@ class Directory
      */
     public function manageDates()
     {
-        if(!$this->getCreatedAt()) $this->setCreatedAt(new \DateTime('now'));
+        if (!$this->getCreatedAt()) $this->setCreatedAt(new \DateTime('now'));
         $this->setUpdatedAt(new \DateTime('now'));
     }
-    
+
     /**
      * Get id
      *
@@ -178,7 +184,6 @@ class Directory
     }
 
 
-
     /**
      * Add favourite
      *
@@ -211,5 +216,30 @@ class Directory
     public function getFavourites()
     {
         return $this->favourites;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \FavorisBundle\Entity\User $user
+     *
+     * @return Directory
+     */
+    public function setUser_dir(\FavorisBundle\Entity\User $user = null)
+    {
+        $this->user_dir = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \FavorisBundle\Entity\User
+     */
+    public function getUser_dir()
+    {
+        return $this->user_dir;
     }
 }

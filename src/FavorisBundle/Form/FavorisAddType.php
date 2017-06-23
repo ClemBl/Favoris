@@ -13,15 +13,32 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 
 class FavorisAddType extends AbstractType
 {
     /**
+     * @var TokenStorage
+     */
+    //protected $tokenStorage;
+    protected $userId;
+
+    /**
+     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage    $tokenStorage
+     */
+    public function __construct(TokenStorage $tokenStorage)
+    {
+       // $this->tokenStorage = $tokenStorage;
+        $this->userId = $tokenStorage->getToken()->getUser()->getId();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder->add('url', UrlType::class, array('required'=>true))
             ->add('title',TextType::class, array('required'=>false))
             ->add('description',TextType::class, array('required'=>false))
@@ -31,9 +48,13 @@ class FavorisAddType extends AbstractType
                 'class' => 'FavorisBundle:Directory',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('d')
+                        ->leftJoin('d.user_dir','u')
+                        ->where('u.id = :userId')
+                        ->setParameter('userId', $this->userId)
                         ->orderBy('d.title', 'ASC');
                 },
                 'choice_label' => 'title',
+                'required'=>true
             ))
 
             ->add('submit', SubmitType::class);

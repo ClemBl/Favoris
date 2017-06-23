@@ -77,6 +77,7 @@ class Favoris
      */
     private $directory;
 
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

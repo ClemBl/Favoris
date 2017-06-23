@@ -2,3 +2,22 @@ services:
 #    favoris.example:
 #        class: FavorisBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+#    favoris.add_favoris:
+#    class: FavorisBundle\Form\FavorisAddType
+#    arguments:
+#        - "@security.token_storage"
+#    tags: [{ name: form.type }]
+
+    favoris.form.type.add.favoris:
+        class: FavorisBundle\Form\FavorisAddType
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: form.type }
+
+    favoris.event.init_profile:
+        class: FavorisBundle\EventListener\InitProfileEvent
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }
