@@ -27,7 +27,7 @@ class DefaultController extends Controller
     public function homeAction(Request $request)
     {
         $parameters = array(
-            'tab'=>'1'
+            'tab'=>'1',
         );
 
         $em = $this->getDoctrine()->getManager();
@@ -78,6 +78,30 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('home');
     }
+
+//    /**
+//     * @Route("/{backgroundSet}", name="bgSetting")
+//     */
+//    public function bgSettingAction(Request $request, $backgroundSet)
+//    {
+//        $background = array(
+//            'bg'=>'0'
+//        );
+//
+//        if( $backgroundSet == 'blue'){
+//            $background = array(
+//                'bg'=>'0'
+//            );
+//        }
+//        elseif ($backgroundSet == 'silver'){
+//            $background = array(
+//                'bg'=>'1'
+//            );
+//        }
+//
+//
+//        return $this->render('FavorisBundle:home:base.html.twig', $background);
+//    }
 
     /**
      * @Route("/settings", name="settings")
@@ -154,18 +178,22 @@ class DefaultController extends Controller
 
         $url = $request->get('data');
         $parts = parse_url($url);
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client(['defaults' => [
+            'verify' => false
+        ]]);
+//        $this->client = new GuzzleClient(['defaults' => [
+//            'verify' => false
+//        ]]);
         $response = $client->request('GET', $url);
-       // $metas = $response->getBody()->getMetadata();
+        // $metas = $response->getBody()->getMetadata();
         //$title = $response->getBody()->getMetadata('title');
         $html = $response->getBody()->getContents();
         $crawler = new Crawler();
         $crawler->addContent($html);
 
+
+
         $title = $crawler->filter('head > title')->text();
-        if (!$title){
-            $title = $url;
-        }
 
         $descriptionNode = ($crawler->filterXPath('//meta[@property="og:description"]') ) ? $crawler->filterXPath('//meta[@property="og:description"]') ->extract(array('content')):null;
 
@@ -185,7 +213,7 @@ class DefaultController extends Controller
             $favicon = ($crawler->filterXPath('//link[@rel="icon"]') ) ? $crawler->filterXPath('//link[@rel="icon"]') ->extract(array('href')):null;
         }
        // $description = ($crawler->filterXPath('//meta[contains(@name, "description")]')) ? $crawler->filterXPath('head > meta[contains(@name, "description")]')->text() : null;
-        $faviconResponse =null;
+        $faviconResponse = null;
         if(count($favicon) > 0){
             if(preg_match('#^(https?:\/\/){1}#', $favicon[0])) $faviconResponse = $favicon[0];
             elseif(preg_match('#^/{2}#', $favicon[0])) $faviconResponse = $parts['scheme'].':'.$favicon[0];
@@ -196,7 +224,7 @@ class DefaultController extends Controller
         $data = array(
             'title' => $title,
             'description'=>(count($descriptionNode) > 0) ?$descriptionNode[0]: null,
-            'favicon'=> $faviconResponse
+            'favicon'=> $faviconResponse,
         );
 
 //        and preg_match("#(((https|http)://(w{3}\.))?([a-zA-Z0-9]|-)+\.([a-z]{2,4}))#",$favicon)
