@@ -24,7 +24,7 @@
                                 data = JSON.parse(data);
                                 if(!$(input_description).val()) $(input_description).val(data.description);
                                 if(!$(input_title).val()) $(input_title).val(data.title);
-                                if(!$(input_favicon).val()) {
+                                if(!$(input_favicon).val()){
                                     $(input_favicon).val(data.favicon);
                                     $('#preview').html('<img src="'+data.favicon+'">');
                                 }
@@ -33,7 +33,7 @@
                             error: function(){
                                 console.log('not-ok');
                             }
-                    });
+                });
                 }
                 else{
                     console.log('not ok');
@@ -50,7 +50,8 @@
 
                 $('#favorisbundle_favoris_add_title').val(null);
                 $('#favorisbundle_favoris_add_description').val(null);
-                $('#preview').html('');
+                $('#favorisbundle_favoris_add_favicon').val(null);
+                $('#preview').html(null);
 
             });
         });

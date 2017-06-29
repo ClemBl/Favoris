@@ -20,7 +20,7 @@ class DirectoryAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, array('required'=>true))
-            ->add('position', IntegerType::class, array('required'=>false))
+//            ->add('position', IntegerType::class, array('required'=>false))
             ->add('submit', SubmitType::class);
     }
     

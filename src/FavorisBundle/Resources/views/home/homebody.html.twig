@@ -1,8 +1,8 @@
 <body>
     {#{% for use in user %}#}
          {% for dir in app.user.directory_user %}
-            <div class="row title-section">
-                <div class="col-offset-xs-1 col-xs-10">
+            <div class="row title-section margin-row">
+                <div class="col-offset-xs-1  col-xs-10">
                     <span>{{ dir.title }}
                         <a href="{{ url('add') }}"><i class="flaticon-plus"></i></a>
                         {% if app.user.directory_user|length > 1 %}
@@ -16,7 +16,7 @@
                     <div class="col-md-2 box-section">
                         <div class="row">
                             <div class="col-md-10 col-xs-9 name-section">
-                                <a href="{{ fav.url }}" target="_blank">{{fav.title|truncate(30,true)}}</a>
+                                <a href="{{ fav.url }}" target="_blank">{% if fav.title %}{{fav.title|truncate(30,true)}}{% else %}{{fav.url|truncate(30,true)}}{% endif %}</a>
                             </div>
                             <div class="col-md-2 col-xs-3 name-section">
                                 <a class="icon-section" href="{{ url('delete_favoris', {'favoris':fav.id}) }}"><i class="flaticon-interface"></i></a>

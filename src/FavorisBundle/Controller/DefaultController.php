@@ -163,9 +163,9 @@ class DefaultController extends Controller
         $crawler->addContent($html);
 
         $title = $crawler->filter('head > title')->text();
-        if (!$title){
-            $title = $url;
-        }
+//        if (!$title){
+//            $title = $url;
+//        }
 
         $descriptionNode = ($crawler->filterXPath('//meta[@property="og:description"]') ) ? $crawler->filterXPath('//meta[@property="og:description"]') ->extract(array('content')):null;
 

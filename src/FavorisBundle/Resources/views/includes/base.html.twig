@@ -7,6 +7,14 @@
             <link href="{{ asset('bundles/favoris/css/bootstrap.css') }}" rel="stylesheet" />
             <link href="{{ asset('bundles/favoris/css/flaticon.css') }}" rel="stylesheet" />
             <link href="{{ asset('bundles/favoris/css/style.css') }}" rel="stylesheet" />
+            {#{% if bg is defined and bg== '0'%}#}
+                 {#<link href="{{ asset('bundles/favoris/css/bgBlue.css') }}" rel="stylesheet" />#}
+            {#{% elseif bg is defined and bg== '1'%}#}
+                {#<link href="{{ asset('bundles/favoris/css/bgSilver.css') }}" rel="stylesheet" />#}
+            {#{% else %}#}
+                {#<link href="{{ asset('bundles/favoris/css/bgBlue.css') }}" rel="stylesheet" />#}
+            {#{% endif %}#}
+
         {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('bundles/favoris/js/jquery-3.2.1.js') }}"></script>
