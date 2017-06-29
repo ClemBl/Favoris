@@ -178,9 +178,9 @@ class DefaultController extends Controller
 
         $url = $request->get('data');
         $parts = parse_url($url);
-        $client = new \GuzzleHttp\Client(['defaults' => [
+        $client = new \GuzzleHttp\Client([
             'verify' => false
-        ]]);
+        ]);
 //        $this->client = new GuzzleClient(['defaults' => [
 //            'verify' => false
 //        ]]);
