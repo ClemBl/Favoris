@@ -39,7 +39,7 @@ class FavorisAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('url', UrlType::class, array('required'=>true))
+        $builder->add('url', UrlType::class, array('required'=>true, 'attr' => array('value'=>'http://', 'placeholder'=>'https://www.monFavoris.com')))
             ->add('title',TextType::class, array('required'=>false))
             ->add('description',TextType::class, array('required'=>false))
 //            ->add('position', IntegerType::class, array('required'=>false))

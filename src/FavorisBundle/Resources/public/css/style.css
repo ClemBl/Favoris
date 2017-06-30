@@ -14,6 +14,11 @@ body {
     font-weight: 100;
 }
 
+.margin-row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
 .top-menu {
     text-align: center;
     width: 100%;
@@ -186,17 +191,17 @@ section{
 }
 
 .bg-green{
-    background-color: #1BBC9B;
+    background-color: #2ECC71;
     color: white;
 }
 
 .bg-red{
-    background-color: #E38B73;
+    background-color: #D64541;
     color: white;
 }
 
 .bg-orange{
-    background-color: #FF7E55;
+    background-color: #F27935;
     color: white;
 }
 .bg-blue{
@@ -234,11 +239,11 @@ section{
 }
 
 .bg-clouds{
-    background-color: #B3B6B7;
+    background-color: #A4BDD5;
 }
 
 .bg-concrete{
-    background-color: #839192;
+    background-color: #7F9FBE;
 }
 
 .info-compte{
@@ -298,7 +303,7 @@ section{
 }
 
 #preview > img{
-    width: 25%;
+    width: 50%;
     height: auto;
 }
 
